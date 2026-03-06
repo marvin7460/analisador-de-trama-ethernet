@@ -1,0 +1,6 @@
+#    MAC Destino          MAC Origen           EtherType  Protocolo   
+------------------------------------------------------------------------
+1    aa:bb:cc:dd:ee:ff    11:22:33:44:55:66    0x0800     IPv4        
+2    ff:ff:ff:ff:ff:ff    00:11:22:33:44:55    0x0806     ARP         
+
+Tramas omitidas (no Ethernet II o no Ethernet): 1
