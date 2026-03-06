@@ -8,7 +8,7 @@ from pathlib import Path
 
 from scapy.all import Dot3, Ether, Raw, wrpcap
 
-from ethernet_parser import format_frames_table, parse_ethernet_ii_frames
+from ethernet_parser import EthernetFrameInfo, format_frames_table, parse_ethernet_ii_frames
 
 
 class EthernetParserTests(unittest.TestCase):
@@ -32,6 +32,23 @@ class EthernetParserTests(unittest.TestCase):
 
     def test_format_empty_table_message(self) -> None:
         self.assertIn("No se encontraron", format_frames_table([]))
+
+    def test_format_table_with_data(self) -> None:
+        frame = EthernetFrameInfo(
+            index=1,
+            mac_destino="aa:bb:cc:dd:ee:ff",
+            mac_origen="11:22:33:44:55:66",
+            ethertype="0x0800",
+            protocolo="IPv4",
+        )
+
+        table = format_frames_table([frame])
+
+        self.assertIn("MAC Destino", table)
+        self.assertIn("aa:bb:cc:dd:ee:ff", table)
+        self.assertIn("11:22:33:44:55:66", table)
+        self.assertIn("0x0800", table)
+        self.assertIn("IPv4", table)
 
 
 if __name__ == "__main__":

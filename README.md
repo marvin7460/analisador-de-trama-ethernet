@@ -1,4 +1,4 @@
-# analisador-de-trama-ethernet
+# analizador-de-trama-ethernet
 
 Primera parte de un sniffer académico para analizar campos de tramas **Ethernet II** a partir de una captura de Wireshark (`.pcap` o `.pcapng`).
 

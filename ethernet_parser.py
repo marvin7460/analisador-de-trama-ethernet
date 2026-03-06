@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, List, Tuple
+from typing import Iterable
 
 from scapy.all import Ether, rdpcap
 from scapy.error import Scapy_Exception
@@ -31,7 +31,7 @@ def _ethertype_to_name(ethertype: int) -> str:
     return ETHERTYPE_MAP.get(ethertype, "Desconocido")
 
 
-def parse_ethernet_ii_frames(file_path: str) -> Tuple[List[EthernetFrameInfo], int]:
+def parse_ethernet_ii_frames(file_path: str) -> tuple[list[EthernetFrameInfo], int]:
     """Parsea un archivo pcap/pcapng y extrae tramas Ethernet II.
 
     Returns:
@@ -53,7 +53,7 @@ def parse_ethernet_ii_frames(file_path: str) -> Tuple[List[EthernetFrameInfo], i
     except OSError as exc:
         raise ValueError(f"No se pudo leer el archivo de captura: {file_path}") from exc
 
-    frames: List[EthernetFrameInfo] = []
+    frames: list[EthernetFrameInfo] = []
     skipped = 0
 
     for idx, packet in enumerate(packets, start=1):
@@ -71,10 +71,10 @@ def parse_ethernet_ii_frames(file_path: str) -> Tuple[List[EthernetFrameInfo], i
 
         frames.append(
             EthernetFrameInfo(
-                index=idx,
+                index=len(frames) + 1,
                 mac_destino=str(ether_layer.dst).lower(),
                 mac_origen=str(ether_layer.src).lower(),
-                ethertype=f"0x{ethertype_num:04x}",
+                ethertype=f"0x{ethertype_num:04X}",
                 protocolo=_ethertype_to_name(ethertype_num),
             )
         )
